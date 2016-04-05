@@ -3,6 +3,10 @@ import java.io.IOException;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+/*
+This code was written by Abifoluwa Oni
+The AsyncTaskActivity class calls the API from yahoo in the background.
+*/
 public class AsyncTaskActivity extends AsyncTaskLoader<String> {
 
     String res  = "";
@@ -25,14 +29,13 @@ public class AsyncTaskActivity extends AsyncTaskLoader<String> {
         return res;
     }
 
-/*
-    @Override
-    public void deliverResult(String data) {
-        // TODO Auto-generated method stub
-        super.deliverResult(data);
-
-    }
-*/
+    /*
+        @Override
+        public void deliverResult(String data) {
+            // TODO Auto-generated method stub
+            super.deliverResult(data);
+        }
+    */
     @Override
     protected void onStartLoading() {
         if (!res.equals("")) {
@@ -43,16 +46,5 @@ public class AsyncTaskActivity extends AsyncTaskLoader<String> {
             forceLoad();
         }
     }
-
-  /*  public void gettweets(String arg1) {
-        // TODO Auto-generated method stub
-        try {
-            javaHttpUrlConnectionReader.doHttpUrlConnectionAction(arg1);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }*/
 
 }

@@ -6,20 +6,20 @@ package com.example.abidemi.seniorproject;
 public class Stock
 {
     private int id;
-    private String symbol;
-    private String last_trade;
-    private String date;
-    private String last_trade_time;
-    private String change;
-    private String open;
-    private String day_high;
-    private String day_low;
-    private String volume;
-    private String previous_close;
+    public  static String symbol;
+    public  String last_trade;
+    public  String date;
+    public  String last_trade_time;
+    public  String change;
+    public  String open;
+    public  String day_high;
+    public  String day_low;
+    public  String volume;
+    public  String previous_close;
 
-    public Stock(){}
-
-    public Stock(String symbol, String last_trade, String last_trade_time, String change, String open, String day_high, String day_low, String volume, String previous_close)
+    public Stock()
+    {}
+    public  Stock(String symbol, String date, String last_trade, String last_trade_time, String change, String open, String day_high, String day_low, String volume, String previous_close)
     {
         super();
 
@@ -36,13 +36,19 @@ public class Stock
     }
 
     public String getSymbol()
+
     {
         return symbol;
     }
-    public void setSymbol(String symbol) {
+    public void setSymbol(String symbol)
+
+
+    {
         this.symbol = symbol;
     }
-    public int getId() {
+    public int getId()
+
+    {
         return id;
     }
     public void setId(int id)
@@ -61,7 +67,6 @@ public class Stock
     {
         return date;
     }
-
     public String setDate(String date)
     {
         return this.date = date;
@@ -75,15 +80,16 @@ public class Stock
         this.last_trade_time = last_trade_time;
     }
     public String getChange()
+
     {
         return change;
     }
     public void setChange(String change)
+
     {
         this.change = change;
     }
     public String getOpen()
-
     {
         return open;
     }
@@ -92,19 +98,20 @@ public class Stock
         this.open = open;
     }
     public String getDay_high()
-
     {
         return day_high;
     }
     public void setDay_high(String day_high)
-    {
+     {
         this.day_high = day_high;
     }
     public String getDay_low()
+
     {
         return day_low;
     }
     public void setDay_low(String day_low)
+
     {
         this.day_low = day_low;
     }
@@ -113,21 +120,24 @@ public class Stock
         return volume;
     }
     public void setVolume(String volume)
+
     {
         this.volume = volume;
     }
 
     public String getPrevious_close()
+
     {
         return previous_close;
     }
     public void setPrevious_close(String previous_close)
+
     {
         this.previous_close = previous_close;
     }
     public String toString()
     {
-        return "Stock [id= " + id +", symbol=" + symbol + ", last_trade=" + last_trade + ", last trade time=" +last_trade_time
+        return "Stock [id= " + id +", symbol=" + symbol + ", date=" + date + ", last_trade=" + last_trade + ", last trade time=" +last_trade_time
                 + ", change="+ change + ", open=" + open + ", day high=" +day_high + ", day_low=" + day_low + ", volume =" + volume +
                 ", previous_close=" + previous_close + "]";
     }
