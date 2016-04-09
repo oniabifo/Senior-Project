@@ -2,6 +2,7 @@ package com.example.abidemi.seniorproject;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Loader;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -60,12 +61,9 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getLoaderManager().initLoader(0, null, this);
-
       table_layout = (TableLayout) findViewById(R.id.tableLayout1);
        // BuildTable();
 
@@ -187,9 +185,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 //                db.addStock(new Stock(symbols, date, last_trade, last_trade_time, change, open, day_high, day_low, volume, previous_close));
 
 
-                //int dip = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                  //      (float) 1, getResources().getDisplayMetrics());
-
                     row = new TableRow(this);
                     row.setId(i);
                     row.setClickable(true);
@@ -197,10 +192,14 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     t1 = new TextView(this);
                     t2 = new TextView(this);
                     t3 = new TextView(this);
+                    //t4 = new TextView(this);
+                    //t5 = new TextView(this);
 
                     t1.setText(symbols);
                     t2.setText("$" + last_trade);
                     t3.setText(change);
+                    //t4.setText(change);
+                    //t5.setText(change);
 
                     t1.setPadding(5, 5, 5, 5);
                     t2.setPadding(5, 5, 5, 5);
@@ -213,6 +212,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     row.addView(t1);
                     row.addView(t2);
                     row.addView(t3);
+
                     table_layout.addView(row, new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
                 row.setOnClickListener(new OnClickListener()
@@ -220,19 +220,28 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     public void onClick(View v)
                     {
                         row =(TableRow)v;
-                        String sym = symbols;
-                        al.add(v.getId(), sym);
-                        System.out.println("Size of al after additions: " + al.size() + "" + sym);
+
                         TextView tv1= (TextView)row.getChildAt(0);
 
-                        Toast toast = Toast.makeText(getApplicationContext(), "Table row clicked "+ Integer.toString(v.getId()) , Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.show();
+                        TextView tv2= (TextView)row.getChildAt(1);
+
+                        TextView tv3= (TextView)row.getChildAt(2);
+
+                        String sym_String = tv1.getText().toString();
+
+                        String sym_String2 = tv2.getText().toString();
+
+                        String sym_String3 = tv3.getText().toString();
+
+                        //Toast toast = Toast.makeText(getApplicationContext(), "Table row clicked "+ Integer.toString(v.getId()) , Toast.LENGTH_LONG);
+                        //toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        //toast.show();
 
                         Intent intent = new Intent(MainActivity.this, ShowDataFromStock.class);
-                        intent.putExtra(Intent.EXTRA_TEXT, symbols);
-                        intent.putExtra("change", change);
-                        intent.putExtra("last_trade", last_trade);
+
+                        intent.putExtra(Intent.EXTRA_TEXT, sym_String);
+                        intent.putExtra("change", sym_String3);
+                        intent.putExtra("last_trade", sym_String2);
                         intent.setType("text/plain");
 
                         Toast.makeText(getApplicationContext(),tv1.getText().toString(), Toast.LENGTH_SHORT).show();
