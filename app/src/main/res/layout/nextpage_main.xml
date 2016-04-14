@@ -37,6 +37,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Stock"
+        android:id="@+id/Stock"
+        android:layout_weight="0.15" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/next_symbol"
         android:layout_weight="0.15" />
 
@@ -46,49 +53,33 @@
         android:layout_height="10dp"
         android:id="@+id/progressBar2"
         android:background="#000000" />
-
     <TextView
-
         android:layout_width="351dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Current Stock Quote"
-        android:id="@+id/next_quote"
+        android:id="@+id/next_quote2"
         android:layout_weight="0.14" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="353dp"
-        android:layout_height="10dp"
-        android:id="@+id/progressBar3"
-        android:background="#000000" />
+    <TextView
+        android:layout_width="351dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/next_quote"
+        android:layout_weight="0.14" />
 
     <TextView
         android:layout_width="349dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Change in Stock"
-        android:id="@+id/next_change"
+        android:id="@+id/next_change2"
         android:layout_weight="0.15" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="353dp"
-        android:layout_height="10dp"
-        android:id="@+id/progressBar4"
-        android:background="#000000" />
-
     <TextView
-        android:layout_width="353dp"
+        android:layout_width="349dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Historical Data"
-        android:id="@+id/next_history"
-        android:layout_weight="0.02" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView5"
-        android:layout_weight="0.02" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/next_change"
+        android:layout_weight="0.15" />
 </LinearLayout>

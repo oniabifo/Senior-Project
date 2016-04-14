@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -21,7 +22,7 @@ import java.net.HttpURLConnection;
 import java.io.InputStream;
 import java.net.URL;
 
-public class ShowDataFromStock extends Activity
+public class ShowDataFromStock extends AppCompatActivity
 {
 
     //Stock stc = new Stock();
@@ -39,9 +40,7 @@ public class ShowDataFromStock extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nextpage_main);
-        iv = (ImageView) findViewById(R.id.imageView5);
-        bitmap = getBitmapFromURL("https://openclipart.org/image/2400px/svg_to_png/196123/1407858226.png");
-        iv.setImageBitmap(bitmap);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         Bundle extras = getIntent().getExtras();
 
         if (extras != null)
@@ -49,6 +48,7 @@ public class ShowDataFromStock extends Activity
             value = extras.getString(Intent.EXTRA_TEXT);
             value2 = extras.getString("change");
             value3 = extras.getString("last_trade");
+            extras.getString("","");
         }
 
         TextView text = (TextView) findViewById(R.id.next_symbol);
@@ -69,24 +69,6 @@ public class ShowDataFromStock extends Activity
         return true;
     }
 
-
-    public Bitmap getBitmapFromURL(String src)
-    {
-        try
-        {
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return  myBitmap;
-        }
-        catch (Exception e)
-        {
-        e.printStackTrace();return null;
-        }
-    }
     public void onLoadFinished()
     {
 

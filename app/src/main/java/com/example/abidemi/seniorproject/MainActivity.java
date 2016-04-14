@@ -4,6 +4,8 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import org.json.JSONArray;
@@ -14,6 +16,7 @@ import org.w3c.dom.Text;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
+import java.sql.Array;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,13 +38,14 @@ import android.view.Gravity;
 * Stock App for Senior Project
 * */
 
-public class MainActivity extends Activity implements LoaderManager.LoaderCallbacks<String>
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>
 {
 
     DatabaseHandler db;
     private static final String TAG = "MyActivity";
     TextView t1, t2, t3, t4, t5;
     public  List<List<String>> csvData = new ArrayList<List<String>>();
+
     //public static String myUrl;
     public static String date;
     public  String volume;
@@ -53,6 +57,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     public  String symbols;
     public static String change;
     public  String day_low;
+    public String name;
     public  String arrayList;
 
     TableLayout table_layout;
@@ -63,6 +68,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         getLoaderManager().initLoader(0, null, this);
       table_layout = (TableLayout) findViewById(R.id.tableLayout1);
        // BuildTable();
@@ -114,6 +120,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
             {
                 try
                 {
+                //
                     json.put("Symbols", new JSONArray(Arrays.asList(csvData.get(i).get(0))));
                     json.put("Last_trade", new JSONArray(Arrays.asList(csvData.get(i).get(1))));
                     json.put("date", new JSONArray(Arrays.asList(csvData.get(i).get(2))));
@@ -124,6 +131,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     json.put("day_low", new JSONArray(Arrays.asList(csvData.get(i).get(7))));
                     json.put("volume", new JSONArray(Arrays.asList(csvData.get(i).get(8))));
                     json.put("previous_close", new JSONArray(Arrays.asList(csvData.get(i).get(9))));
+                    json.put("Name", new JSONArray(Arrays.asList(csvData.get(i).get(10))));
                     arrayList = json.toString();
                 }
                 catch (JSONException e)
@@ -133,6 +141,7 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                 }
                 try
                 {
+                    JSONArray jsonarr11 = json.getJSONArray("Name");
                     JSONArray jsonarr = json.getJSONArray("Symbols");
                     JSONArray jsonarr2 = json.getJSONArray("Last_trade");
                     JSONArray jsonarr3 = json.getJSONArray("date");
@@ -143,6 +152,11 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     JSONArray jsonarr10 = json.getJSONArray("day_low");
                     JSONArray jsonarr8 = json.getJSONArray("volume");
                     JSONArray jsonarr9 = json.getJSONArray("previous_close");
+
+                    name = (String) jsonarr11.get(0);
+                    name = name.replace("\"", "");
+                    StringTokenizer st = new StringTokenizer(name);
+                    name = name.substring(0, Math.min(name.length(), 11));
 
                     date = (String) jsonarr3.get(0);
                     date = date.replace("\"", "");
@@ -173,7 +187,6 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
 
                     day_low = (String) jsonarr10.get(0);
                     day_low = day_low.replace("\"", "");
-
                 }
                 catch (JSONException e)
                 {
@@ -181,25 +194,22 @@ public class MainActivity extends Activity implements LoaderManager.LoaderCallba
                     e.printStackTrace();
                 }
 
-                //db = new DatabaseHandler(this);
-//                db.addStock(new Stock(symbols, date, last_trade, last_trade_time, change, open, day_high, day_low, volume, previous_close));
+               // db = new DatabaseHandler(this);
+               // db.addStock(new Stock(symbols, date, last_trade, last_trade_time, change, open, day_high, day_low, volume, previous_close));
 
 
-                    row = new TableRow(this);
+                row = new TableRow(this);
                     row.setId(i);
-                    row.setClickable(true);
+                row.setClickable(true);
 
                     t1 = new TextView(this);
                     t2 = new TextView(this);
                     t3 = new TextView(this);
-                    //t4 = new TextView(this);
-                    //t5 = new TextView(this);
 
-                    t1.setText(symbols);
+                    t1.setText(name + " ("+symbols+")");
+                    //t1.setText(name);
                     t2.setText("$" + last_trade);
                     t3.setText(change);
-                    //t4.setText(change);
-                    //t5.setText(change);
 
                     t1.setPadding(5, 5, 5, 5);
                     t2.setPadding(5, 5, 5, 5);
