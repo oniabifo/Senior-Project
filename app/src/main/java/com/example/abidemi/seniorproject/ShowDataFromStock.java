@@ -3,6 +3,7 @@ package com.example.abidemi.seniorproject;
 /**
  * Created by Abidemi on 3/25/2016.
  */
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
@@ -15,12 +16,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.Context;
 import android.net.Uri;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.io.InputStream;
-import java.net.URL;
+import android.os.Bundle;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import org.htmlcleaner.CleanerProperties;
+import org.htmlcleaner.HtmlCleaner;
+import org.htmlcleaner.SimpleHtmlSerializer;
+import org.htmlcleaner.TagNode;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ShowDataFromStock extends AppCompatActivity
 {
@@ -30,10 +40,12 @@ public class ShowDataFromStock extends AppCompatActivity
     String value2;
     String value3;
     String value4;
-
-
+    WebView webView;
     public ImageView iv;
+
     public Bitmap bitmap;
+    private WebView browser;
+    private TextView txtLoading;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -41,19 +53,29 @@ public class ShowDataFromStock extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nextpage_main);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        Bundle extras = getIntent().getExtras();
 
+        browser = (WebView) findViewById(R.id.webview);
+        browser.getSettings().setJavaScriptEnabled(true);
+
+        Stock stc = new Stock();
+        //LoadContent("http://www.barchart.com/charts/stocks/AVHI");
+
+        Bundle extras = getIntent().getExtras();
         if (extras != null)
         {
             value = extras.getString(Intent.EXTRA_TEXT);
             value2 = extras.getString("change");
             value3 = extras.getString("last_trade");
             extras.getString("","");
+
+            int index = value.indexOf(" ");
+            String fistString = value.substring(0, index);
+            System.out.println("fistString = "+fistString);
+            LoadContent("http://www.barchart.com/charts/stocks/" + fistString);
         }
 
         TextView text = (TextView) findViewById(R.id.next_symbol);
         text.setText(value);
-
         TextView text1 = (TextView) findViewById(R.id.next_change);
         text1.setText(value2);
 
@@ -62,15 +84,52 @@ public class ShowDataFromStock extends AppCompatActivity
 
     }
 
+    @SuppressLint({"ParseError", "ParserError" })
+    private void LoadContent(final String url)
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                final String newPage;
+                try
+                {
+                    Document doc = Jsoup.connect(url).get();
+                    Elements newsRawTag = doc.select("div#chartdiv");
+                    newPage = newsRawTag.html();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run()
+                        {
+                            try
+                            {
+                                HtmlCleaner cleaner = new HtmlCleaner();
+                                CleanerProperties props = cleaner.getProperties();
+                                TagNode tagNode = new HtmlCleaner(props).clean(newPage);
+                                SimpleHtmlSerializer htmlSerializer = new SimpleHtmlSerializer(props);
+                                browser.loadDataWithBaseURL(null, htmlSerializer.getAsString(tagNode), "text/html", "charset=UTF-8", null);
+                                throw new IOException();
+                            }
+                            catch (IOException e)
+                            {
+
+                            }
+                        }
+                    });
+                }
+                catch (IOException e)
+                {
+
+                }
+            }
+        }).start();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    public void onLoadFinished()
-    {
-
     }
 }

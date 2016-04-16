@@ -33,6 +33,8 @@ import android.view.View;
 import java.util.*;
 import  android.graphics.Color;
 import android.content.Intent;
+
+
 import android.view.Gravity;
 /*This Project was created by Abifoluwa Oni
 * Stock App for Senior Project
@@ -72,8 +74,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         getLoaderManager().initLoader(0, null, this);
       table_layout = (TableLayout) findViewById(R.id.tableLayout1);
        // BuildTable();
-
-
     }
 
     @Override
@@ -194,8 +194,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     e.printStackTrace();
                 }
 
-               // db = new DatabaseHandler(this);
-               // db.addStock(new Stock(symbols, date, last_trade, last_trade_time, change, open, day_high, day_low, volume, previous_close));
+                db = new DatabaseHandler(this);
+                db.addStock(new Stock(symbols, date, last_trade, last_trade_time, change, open, day_high, day_low, volume, previous_close));
 
 
                 row = new TableRow(this);
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     t2 = new TextView(this);
                     t3 = new TextView(this);
 
-                    t1.setText(name + " ("+symbols+")");
+                    t1.setText(symbols + " ("+name+")");
                     //t1.setText(name);
                     t2.setText("$" + last_trade);
                     t3.setText(change);
