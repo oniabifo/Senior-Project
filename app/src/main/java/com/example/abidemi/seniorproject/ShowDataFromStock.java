@@ -98,7 +98,8 @@ public class ShowDataFromStock extends AppCompatActivity
                     Document doc = Jsoup.connect(url).get();
                     Elements newsRawTag = doc.select("div#chartdiv");
                     newPage = newsRawTag.html();
-                    runOnUiThread(new Runnable() {
+                    runOnUiThread(new Runnable()
+                    {
                         @Override
                         public void run()
                         {
