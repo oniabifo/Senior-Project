@@ -15,7 +15,6 @@
     android:weightSum="1"
     android:baselineAligned="false">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="46dp"
@@ -27,7 +26,7 @@
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="353dp"
+        android:layout_width="match_parent"
         android:layout_height="10dp"
         android:id="@+id/progressBar"
         android:background="#000000" />
@@ -43,19 +42,19 @@
 
     <ProgressBar
         style="?android:attr/progressBarStyleSmall"
-        android:layout_width="354dp"
+        android:layout_width="match_parent"
         android:layout_height="10dp"
         android:id="@+id/progressBar2"
         android:background="#000000" />
 
 
     <TextView
-        android:layout_width="356dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:paddingRight="40dp"
         android:background="#E5E4E2"
-        android:text="\u00A0\u00A0\u00A0\       Name\n       (Symbol)\                   Last Price\u00A0\u00A0\              Change"
+        android:text="\u00A0\u00A0\u00A0\  Name\n   (Symbol)\                    Last Price                  Change"
         android:id="@+id/textView" />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -73,5 +72,4 @@
         android:stretchColumns="*"
         ></TableLayout>
     </ScrollView>
-
 </LinearLayout>

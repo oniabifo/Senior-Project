@@ -33,6 +33,7 @@ public class Stock
         this.day_low = day_low;
         this.volume = volume;
         this.previous_close = previous_close;
+
     }
 
     public String getSymbol()

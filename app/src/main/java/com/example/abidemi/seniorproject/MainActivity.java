@@ -194,8 +194,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     e.printStackTrace();
                 }
 
-                db = new DatabaseHandler(this);
-                db.addStock(new Stock(symbols, date, last_trade, last_trade_time, change, open, day_high, day_low, volume, previous_close));
+               // db = new DatabaseHandler(this);
+              //  db.addStock(new Stock(symbols, date, last_trade, last_trade_time, change, open, day_high, day_low, volume, previous_close));
 
 
                 row = new TableRow(this);
